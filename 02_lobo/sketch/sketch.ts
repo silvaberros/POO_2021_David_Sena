@@ -55,6 +55,8 @@ let board_image: p5.Image;
 let board: tabuleiro;
 let buraco: personagem;
 let buraco_image: p5.Image;
+let pontos: number = 50;
+let contador: number = 2;
 
 function loadImg (path: string):p5.Image {
   return loadImage(
@@ -87,10 +89,25 @@ function wolf_limit() {
   }
 }
 
+function points(){
+  if(contador == 0){
+    pontos -= 5;
+    contador = 2
+  }
+
+  noStroke();
+  fill(250);
+  rect(17, 23, 200, 35);
+  noStroke();
+  fill(0);
+  textSize(30);
+  text("Pontuação:" + " " + pontos, 20, 50);
+}
 ////////////////////////////////////////////
+
 function setup() {
   let size = 150;
-  wolf = new personagem(2, 2, size, wolf_image_D);
+  wolf = new personagem(floor(random(1, 5)), floor(random(1, 5)) size, wolf_image_D);
   rabbit = new personagem(floor(random(1, 5)), floor(random(1, 5)), size, rabbit_image);
   board = new tabuleiro(5, 5, size, board_image);
   buraco = new personagem(floor(random(1, 5)), floor(random(1, 5)), size, buraco_image);
@@ -100,26 +117,32 @@ function setup() {
 
 function draw() {
   board.draw();
-  if( wolf.x === buraco.x && wolf.y === buraco.y) {
+  if( wolf.x == buraco.x && wolf.y == buraco.y) {
     buraco.draw();
   }
   wolf.draw();
-  if( wolf.x === rabbit.x && wolf.y === rabbit.y) {
+  if( wolf.x == rabbit.x && wolf.y == rabbit.y) {
     rabbit.draw();
   }
-  wolf_limit(); 
+  wolf_limit();
+  points();
+  
 }
 
 function keyPressed () {
   if(keyCode === LEFT_ARROW) {
     wolf.x--;
     wolf.imagem = wolf_image_E;
+    contador--;
   } else if(keyCode === RIGHT_ARROW) {
     wolf.x++;
     wolf.imagem = wolf_image_D;
+    contador--;
   } else if(keyCode === UP_ARROW) {
     wolf.y--;
+    contador--;
   } else if(keyCode === DOWN_ARROW) {
     wolf.y++;
+    contador--;
   }  
 }
