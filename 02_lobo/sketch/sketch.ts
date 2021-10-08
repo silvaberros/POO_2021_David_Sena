@@ -57,6 +57,9 @@ let buraco: personagem;
 let buraco_image: p5.Image;
 let pontos: number = 50;
 let contador: number = 2;
+let dentro: boolean = false;
+let fora: number = 0;
+let fim: boolean = false;
 
 function loadImg (path: string):p5.Image {
   return loadImage(
@@ -103,6 +106,23 @@ function points(){
   textSize(30);
   text("Pontuação:" + " " + pontos, 20, 50);
 }
+
+function FIM() {
+  if( wolf.x == rabbit.x && wolf.y == rabbit.y) {
+    noStroke();
+    fill("red");
+    textSize(100);
+    text("YOU WIN", 150, 400);
+    fim = true;
+  }
+  if(pontos <= 0) {
+    noStroke();
+    fill("red");
+    textSize(100);
+    text("GAME OVER", 120, 400);
+    fim = true;
+  }
+}
 ////////////////////////////////////////////
 
 function setup() {
@@ -117,8 +137,12 @@ function setup() {
 
 function draw() {
   board.draw();
-  if( wolf.x == buraco.x && wolf.y == buraco.y) {
+  if( wolf.x === buraco.x && wolf.y === buraco.y) {
     buraco.draw();
+    dentro = true;
+  }
+  if(fora == 2) {
+    dentro = false;
   }
   wolf.draw();
   if( wolf.x == rabbit.x && wolf.y == rabbit.y) {
@@ -126,23 +150,45 @@ function draw() {
   }
   wolf_limit();
   points();
+  FIM();
   
 }
 
 function keyPressed () {
-  if(keyCode === LEFT_ARROW) {
-    wolf.x--;
-    wolf.imagem = wolf_image_E;
-    contador--;
-  } else if(keyCode === RIGHT_ARROW) {
-    wolf.x++;
-    wolf.imagem = wolf_image_D;
-    contador--;
-  } else if(keyCode === UP_ARROW) {
-    wolf.y--;
-    contador--;
-  } else if(keyCode === DOWN_ARROW) {
-    wolf.y++;
-    contador--;
+  if(fim == false) {
+    if (dentro){
+      if(keyCode === LEFT_ARROW) {
+        wolf.x = buraco.x;
+        contador--;
+        fora++;
+      } else if(keyCode === RIGHT_ARROW) {
+        wolf.x = buraco.x;
+        wolf.imagem = wolf_image_D;
+        contador--;
+        fora++;
+      } else if(keyCode === UP_ARROW) {
+        wolf.y = buraco.y;
+        contador--;
+        fora++;
+      } else if(keyCode === DOWN_ARROW) {
+        wolf.y = buraco.y;
+        contador--;
+        fora++;
+      }
+    } else if(keyCode === LEFT_ARROW) {
+      wolf.x--;
+      wolf.imagem = wolf_image_E;
+      contador--;
+    } else if(keyCode === RIGHT_ARROW) {
+      wolf.x++;
+      wolf.imagem = wolf_image_D;
+      contador--;
+    } else if(keyCode === UP_ARROW) {
+      wolf.y--;
+      contador--;
+    } else if(keyCode === DOWN_ARROW) {
+      wolf.y++;
+      contador--;
+    }
   }  
 }
