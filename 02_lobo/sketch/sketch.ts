@@ -60,6 +60,7 @@ let contador: number = 2;
 let dentro: boolean = false;
 let fora: number = 0;
 let fim: boolean = false;
+let song: p5.SoundFile;
 
 function loadImg (path: string):p5.Image {
   return loadImage(
@@ -75,6 +76,7 @@ function preload() {
   wolf_image_D = loadImg('../sketch/lobol2.png');
   rabbit_image = loadImg('../sketch/coelho.png');
   buraco_image = loadImg('../sketch/buraco.png');
+  song = loadSound('../sketch/music.mp3');
 }
 
 function wolf_limit() {
@@ -132,6 +134,7 @@ function setup() {
   board = new tabuleiro(5, 5, size, board_image);
   buraco = new personagem(floor(random(1, 5)), floor(random(1, 5)), size, buraco_image);
   createCanvas(board.nc * size, board.nl * size);
+  song.play();
 
 }
 
@@ -140,6 +143,7 @@ function draw() {
   if( wolf.x === buraco.x && wolf.y === buraco.y) {
     buraco.draw();
     dentro = true;
+
   }
   if(fora == 2) {
     dentro = false;

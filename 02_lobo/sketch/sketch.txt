@@ -89,3 +89,11 @@ function draw(){
   draw_mat();
   draw_cell(snake.body);
 }
+eu queria colocar o coelho e uma armadilha (buraco)
+de forma randomica e escondida, pra aparecerem apenas
+quando o lobo estivesse na mesma posição. daí o jogo
+começa com 50 pontos e vai caindo de 5 em 5 até 0.
+ no 0 ponto dá game over. qnd encontra o coelho dá you win.
+ e no buraco é preciso mover o lobo duas vezes antes dele conseguir sair.
+ porem, qnd ele cai no buraco de novo, ele passa direto.
+ do que eu queria fazer, ficou faltando apenas isso.
