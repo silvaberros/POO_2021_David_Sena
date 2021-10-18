@@ -79,7 +79,7 @@ function preload() {
   song = loadSound('../sketch/music.mp3');
 }
 
-function wolf_limit() {
+function wolf_limit(): void {
   if(wolf.x == board.nc){
     wolf.x--;
   }
