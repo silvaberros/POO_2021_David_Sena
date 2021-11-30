@@ -1,6 +1,6 @@
 
 // MODO INTERATIVO (instalar localmente)
-// nom install readline-sync @types/readline-sync @types/node
+// npm install readline-sync @types/readline-sync @types/node
 
 //importar o pacote
 const readline = require ("readline-sync");
@@ -10,6 +10,7 @@ console.log("Digite o seu nome:")
 let nome = readline.question();
 console.log("Ola, meu amigo " + nome);
 */
+
 //criar um função com o readline
 let input = (): string => readline.question();
 let write = (x: any) => process.stdout.write("" + x);
