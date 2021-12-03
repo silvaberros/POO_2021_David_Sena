@@ -54,11 +54,15 @@ class Fone {
     }    
 }
 
+// let fone = new Fone("tim", "9921");
+// let number = fone.getFone();
+// console.log(number);
+
 
 class Contato {
     private id: string;
     private fones: Array<Fone>;
-    protected prefix = "-";
+    //protected prefix = "-";
 
     constructor (id: string, fones: Array<Fone>){
         this.id = id;
@@ -120,7 +124,8 @@ class Agenda {
             this.contatos.sort((a, b) => a.getId().localeCompare(b.getId()))
         } else {
             for(let num of contato.getFone()){
-                this.contatos[i].addFone(num);
+                console.log("" + num);
+                //this.contatos[i].addFone(num);
             }            
         }
     }
