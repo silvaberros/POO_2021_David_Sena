@@ -110,11 +110,10 @@ class Agenda {
     private posNome(nome: string): any {
         for(let i = 0; i < this.contatos.length; i++){
             if(this.contatos[i].getId() == nome){
-                return i;
-            } else {
-                return -1;
+                return i;        
             }
         }
+        return -1;
     }
 
     public addContato(contato: Contato): void{
