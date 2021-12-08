@@ -24,14 +24,23 @@ class Sala {
         if(assento >= 40 || assento <= 0){          //numero maximo de cadeiras
             console.log("Assento inválido");
             return false;
-        } else if(this.assentos.has(assento)){
-            if(this.assentos.get(assento) === cliente){
-                console.log("O cliente já está na sala");
-                return false;
-            } else {
-                console.log("A cadeira já está ocupada");
-                return false;
+        }
+        let presente = false;
+        let ocupado = false
+        for(let [key,value] of this.assentos){
+            if(value.id == cliente.id){
+                presente = true;
             }
+            if(key == assento){
+                ocupado = true;
+            }
+        }
+        if(presente){
+            console.log("O cliente já fez uma reserva");
+            return false;
+        } else if(ocupado) {
+            console.log("A cadeira já está ocupada");
+            return false;
         } else {
             this.assentos.set(assento, cliente);
             return true;
@@ -93,20 +102,25 @@ let sala01 = new Sala;
 console.log("" + sala01);
 
 
-//reservar
+// //reservar
 sala01.reservar(new Cliente("3232", "Davi"), 0);
 sala01.reservar(new Cliente("3131", "Joao"), 3);
-console.log("" + sala01);
+// console.log("" + sala01);
 
-sala01.reservar(new Cliente("3234", "Rute"), 3);
-console.log(sala01.toString());
+// sala01.reservar(new Cliente("3234", "Rute"), 3);
+// console.log(sala01.toString());
 
 sala01.reservar(new Cliente("3235", "Davi"), 2);
-console.log("" + sala01);
+// console.log("" + sala01);
 
-//cancelar
-sala01.cancelar("Davi");
-console.log("" + sala01);
+// //cancelar
+// sala01.cancelar("Davi");
+// console.log("" + sala01);
 
-sala01.cancelar("Rita");
+// sala01.cancelar("Rita");
+// console.log("" + sala01);
+
+sala01.reservar(new Cliente("3235", "Davi"), 1);
+sala01.reservar(new Cliente("3235", "Jorge"), 2);
+
 console.log("" + sala01);
