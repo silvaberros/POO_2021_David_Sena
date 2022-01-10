@@ -27,8 +27,12 @@ class Banco {
 
     //se o caixa estiver vazio, pega a primeira pessoa da fila de espera
     chamarNoCaixa(caixa: number): boolean {
+        if (caixa < 0 || caixa >= this.caixas.length) {
+            console.log("Caixa invalido");
+            return false;
+        }
         if(this.caixas[caixa] != null){
-            console.log("Ainda tem gente no caixa " + caixa);
+            console.log("Caixa " + caixa + " ocupado");
             return false;
         } else {
             this.caixas[caixa] = this.espera[0];
@@ -39,6 +43,10 @@ class Banco {
 
     //se o caixa estiver ocupado, retira a pessoa do caixa
     finalizarAtendimento(caixa: number): boolean {
+        if (caixa < 0 || caixa >= this.caixas.length) {
+            console.log("Caixa invalido");
+            return false;
+        }
         if(this.caixas[caixa] == null){
             console.log("Não tem ninguém no caixa " + caixa)
             return false;
