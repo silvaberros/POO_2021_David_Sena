@@ -14,14 +14,21 @@ class Fone {
     static validate(fone: string): boolean {
         let ok = "0123456789()-.";
         for(let i = 0; i < fone.length; i++){
-            if(ok.indexOf(fone[i]) == -1){
+            if(ok.indexOf(fone[i]) == -1){ //indexOf procura o indice de um elemento semelhante a fone[i] em "ok". não encontrando, retorna -1.
                 return false;
             }
         }
         return true;
     }
-
-
+    
+    public isValid(fone: string): boolean{
+        if(Fone.validate(fone)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     //SETs e GETs
     public setLabel(label: string): string {
         return label;
@@ -41,7 +48,6 @@ class Fone {
 class Contato {
     private id: string;
     private fones: Array<Fone>;
-    protected prefix = "-";
 
     constructor (id: string, fones: Array<Fone>){
         this.id = id;
@@ -57,7 +63,7 @@ class Contato {
 
     public addFone(fone: Fone): void | string {
         let num = fone.getFone();
-        if(!Fone.validate(num)){
+        if(!fone.isValid(num)){
             console.log ("Fone inválido");
         } else {
             this.fones.push(fone);
@@ -65,6 +71,9 @@ class Contato {
     }
 
     public rmFone(index: number): void {
+        if(index < 0 || index > this.fones.length){
+            console.log("Index inválido");
+        }
         this.fones.splice(index);
     }
 }
