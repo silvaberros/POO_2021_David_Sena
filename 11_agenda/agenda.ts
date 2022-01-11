@@ -107,7 +107,7 @@ class Agenda {
         return this.contatos.join("\n");
     }
     
-    private posNome(nome: string): any {
+    private posNome(nome: string): number {
         for(let i = 0; i < this.contatos.length; i++){
             if(this.contatos[i].getId() == nome){
                 return i;        
@@ -117,21 +117,21 @@ class Agenda {
     }
 
     public addContato(contato: Contato): void{
-        let i: number = this.posNome(contato.getId());
-        if(i == -1){
-            this.contatos.push(contato);
-            this.contatos.sort((a, b) => a.getId().localeCompare(b.getId()))
+        let i: number = this.posNome(contato.getId());//posNome procura o contato na lista
+        if(i == -1){ //caso não ache, retorna -1. então é preciso add novo contato
+            this.contatos.push(contato); //add o contato
+            this.contatos.sort((a, b) => a.getId().localeCompare(b.getId()))//organiza a lista em ordem alfabética
         } else {
             for(let num of contato.getFone()){
-                console.log("" + num);
-                //this.contatos[i].addFone(num);
+                //console.log("" + num);
+                this.contatos[i].addFone(num);
             }            
         }
     }
     public rmvContato(nome: string): void {
         let i: number = this.posNome(nome);
         if (i != -1){
-            this.contatos.splice(i);
+            this.contatos.splice(i, 1);
         } else {
             console.log("Contato inexistente")
         }
@@ -167,6 +167,9 @@ let agenda = new Agenda;
 
 agenda.addContato(david);
 agenda.addContato(john);
+console.log("" + agenda + "\n")
+agenda.addContato(new Contato("David", [new Fone("test","1111")]))
 
-console.log("" + agenda);
+console.log("" + agenda + "\n");
+console.log("" + agenda.getContato("John") + "\n")
 
